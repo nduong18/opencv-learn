@@ -32,5 +32,24 @@
 
 ``blur = cv2.GaussianBlur(resized, (9, 9), 0)``: <br>
 ``kernel = np.ones((15,15), np.float32) / (15*15)``: tạo một bộ lọc (kernel) để lấy trung bình của vùng 15×15 pixel xung quanh → làm mờ ảnh (blur) (kích thước càng lớn -> blur càng mạnh), lấy trung bình của 15x15=225 pixel xung quanh mỗi điểm ảnh. <br>
-`blur_manual = cv2.filter2D(resized, -1, kernel)`: lấy kernel → quét qua ảnh → tạo ảnh mới theo cách kernel định nghĩa<br>
-`np.float32`: Thuộc Numpy -> trong blur dùng làm kiểu dữ liệu của ma trận (số thập phân)
+`blur_manual = cv2.filter2D(resized, -1, kernel)`: lấy kernel → quét qua ảnh → tạo ảnh mới theo cách kernel định nghĩa <br>
+`np.float32`: Thuộc Numpy -> trong blur dùng làm kiểu dữ liệu của ma trận (số thập phân) <br>
+### Day 5:
+* Dùng `Canny` để detect edge
+* Cạnh là nơi pixel thay đổi mạnh (chỗ chuyển đen -> trắng = edge)
+* `Pipeline chuẩn`: image -> grayscale -> blur -> canny
+  * `Grayscale`:đưa ảnh về 1 kênh -> đỡ bị loạn
+  * `Blur`: ảnh thật luôn có noise (nhiễu) -> blur làm mịn ảnh -> giảm noise -> edge sạch hơn
+  * `Canny`: detect edge
+
+`cv2.Canny(image, threshold1, threshold2)`: thresold1 - ngưỡng thấp, thresold2 - ngưỡng cao
+* Pixel mạnh → chắc chắn là edge . Pixel yếu → có thể là edge => Canny quyết định giữ hay bỏ
+* **Quy tắc nhanh điều chỉnh thresold nhanh:**
+  * ảnh nhiều noise -> thresold cao
+  * ảnh sạch -> thresold thấp
+  * object sáng -> thresold thấp
+  * object tối -> thresold cao
+
+`cv2.namedWindow('detect edge')`: Tạo 1 window có tên 'detect edge' <br>
+`cv2.createTrackbar('Low', 'detect edge', 100, 255, nothing)`: Tạo trackbar <br>
+`x = cv2.getTrackbarPos('Low', 'detect edge')`: Set vị trí ban đầu trong trackbar <br>
