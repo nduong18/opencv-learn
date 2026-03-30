@@ -51,5 +51,5 @@
   * object tối -> thresold cao
 
 `cv2.namedWindow('detect edge')`: Tạo 1 window có tên 'detect edge' <br>
-`cv2.createTrackbar('Low', 'detect edge', 100, 255, nothing)`: Tạo trackbar <br>
-`x = cv2.getTrackbarPos('Low', 'detect edge')`: Set vị trí ban đầu trong trackbar <br>
+`cv2.createTrackbar('Low', 'detect edge', 100, 255, nothing)`: Tạo trackbar với pos = 100 và limit = 255 <br>
+`x = cv2.getTrackbarPos('Low', 'detect edge')`: Lấy vị trí ban đầu trong trackbar <br>
