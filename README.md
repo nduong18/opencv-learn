@@ -53,3 +53,12 @@
 `cv2.namedWindow('detect edge')`: Tạo 1 window có tên 'detect edge' <br>
 `cv2.createTrackbar('Low', 'detect edge', 100, 255, nothing)`: Tạo trackbar với pos = 100 và limit = 255 <br>
 `x = cv2.getTrackbarPos('Low', 'detect edge')`: Lấy vị trí ban đầu trong trackbar <br>
+### Day 6: Motion dectection system
+* `Pipeline`: Frame -> Frame -> Diff -> Gray -> Blur -> Thresold <br>
+* Vùng trắng -> Có chuyển động <br>
+
+`cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)`: `0` = camera mặc định , `CAP_DSHOW` = backend ổn định trên windows <br>
+`ret, frame1 = cap.read() và ret, frame2 = cap.read()`: lấy 2 frame liên tiếp <br>
+`diff = cv2.absdiff(frame1, frame2)`: pixel = |frame1 - frame2| , giống nhau -> 0 (đen), khác nhau > 0 (trắng) <br>
+`_, thresh = cv2.threshold(blur, x, 255, cv2.THRESH_BINARY)`: Thresold: trắng -> chuyển động, đen -> ko chuyển động <br>
+`cap.release()`: Giải phóng tài nguyên camera sau khi đã xử lý xong tránh xung đột / rò rỉ bộ nhớ <br>
